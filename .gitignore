@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+.pytest_cache/
+data/
+models/*.pkl
+models/case_base.json
+results/audit_log.jsonl

@@ -1,0 +1,7 @@
+{
+  "val_roc_auc": 0.9258,
+  "val_pr_auc": 0.8747,
+  "n_train": 1500,
+  "n_val": 500,
+  "fraud_rate": 0.408
+}
