@@ -28,24 +28,7 @@ Fraud rules engines are noisy. In this project's alert queue, **61% of alerts ar
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Q[(Alert queue<br/>rules engine)] --> O[Triage orchestrator]
-    O --> B{Brain}
-    B -->|LLM tool-calling loop| L[LLMAgent<br/>Claude / GPT / Gemini / Ollama]
-    B -->|offline / fallback| P[PlaybookAgent<br/>deterministic SOP]
-    L & P --> T[Tool layer<br/>scoped · time-bounded · injection scan]
-    T --> S[(Event store<br/>profiles · activity · IP intel)]
-    T --> M[ML risk model<br/>+ similar-case search]
-    L & P --> V[Verdict<br/>pydantic schema]
-    V --> G[Guardrail policy<br/>independent ML score]
-    G --> W{Workflow}
-    W -->|CLOSE| C1[auto-closed]
-    W -->|MONITOR| C2[watchlist]
-    W -->|ESCALATE| C3[analyst queue]
-    W -->|BLOCK| C4[pending human approval]
-    G --> A[(Audit log JSONL)]
-```
+![Architecture: alert queue → agent (LLM or playbook) → tool layer → verdict → guardrail policy → workflow](docs/architecture.png)
 
 ### Agent tools
 
